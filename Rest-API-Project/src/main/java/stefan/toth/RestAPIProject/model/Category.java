@@ -3,7 +3,6 @@ package stefan.toth.RestAPIProject.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 public class Category {
@@ -17,11 +16,30 @@ public class Category {
     @JsonProperty("Description")
     private String description;
 
-    @JsonProperty("Creation-Date")
-    private String creationDate;
+    @JsonProperty("Created_at")
+    private String created_at;
 
-    @JsonProperty("Last-Modification-Date")
-    private String lastModificationDate;
+    @JsonProperty("Modified_at")
+    private String modified_at;
+
+    public Category() {
+    }
+
+    public Category(int id, String title, String description, String created_at, String modified_at) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.created_at = created_at;
+        this.modified_at = modified_at;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -39,44 +57,19 @@ public class Category {
         this.description = description;
     }
 
-    public Category() {
+    public String getCreated_at() {
+        return created_at;
     }
 
-
-    public Category(String title, String description) {
-        this.title = title;
-        this.description = description;
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 
-    public int getId() {
-        return id;
+    public String getModified_at() {
+        return modified_at;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getLastModificationDate() {
-        return lastModificationDate;
-    }
-
-    public void setLastModificationDate(String lastModificationDate) {
-        this.lastModificationDate = lastModificationDate;
-    }
-
-    public Category(int id, String title, String description, String creationDate, String lastModificationDate) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.lastModificationDate = lastModificationDate;
+    public void setModified_at(String modified_at) {
+        this.modified_at = modified_at;
     }
 }
