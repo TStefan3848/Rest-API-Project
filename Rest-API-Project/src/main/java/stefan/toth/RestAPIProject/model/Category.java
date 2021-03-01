@@ -25,14 +25,6 @@ public class Category {
     public Category() {
     }
 
-    public Category(int id, String title, String description, String created_at, String modified_at) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.created_at = created_at;
-        this.modified_at = modified_at;
-    }
-
     public int getId() {
         return id;
     }

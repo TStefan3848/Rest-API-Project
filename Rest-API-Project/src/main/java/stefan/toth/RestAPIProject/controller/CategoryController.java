@@ -49,7 +49,6 @@ public class CategoryController {
 
     }
 
-
     @PostMapping
     public Category create(@RequestBody Category category) throws ValidationException {
         if (category.getTitle() == null || category.getDescription() == null)
@@ -58,7 +57,6 @@ public class CategoryController {
         category.setCreated_at(dateTimeFormater(LocalDateTime.now()));
         category.setModified_at(dateTimeFormater(LocalDateTime.now()));
         return categoryService.save(category);
-
     }
 
     @DeleteMapping("/{id}")
@@ -76,6 +74,10 @@ public class CategoryController {
         if (categoryService.findById(category.getId()).isPresent()) {
             category.setCreated_at(categoryService.findById(category.getId()).get().getCreated_at());
             category.setModified_at(dateTimeFormater(LocalDateTime.now()));
+            if (category.getTitle() == null)
+                category.setTitle(categoryService.findById(category.getId()).get().getTitle());
+            if(category.getDescription() == null)
+                category.setDescription(categoryService.findById(category.getId()).get().getDescription());
             return new ResponseEntity(categoryService.save(category), HttpStatus.OK);
         }
         return new ResponseEntity(category, HttpStatus.BAD_REQUEST);
