@@ -3,6 +3,7 @@ package stefan.toth.RestAPIProject.model;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,13 +21,16 @@ public class Article {
     private String description;
 
     @JsonProperty("Created_at")
-    private String created_at;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    private Date created_at;
 
     @JsonProperty("Published_at")
-    private String published_at;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    private Date published_at;
 
     @JsonProperty("Modified_at")
-    private String modified_at;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    private Date modified_at;
 
     @JsonProperty("Author")
     @ManyToOne
@@ -42,15 +46,15 @@ public class Article {
     @Transient
     private int[] category_ids;
 
-    public int getAuthor_id() {
-        return author_id;
-    }
-
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
-    }
-
     public Article() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -69,27 +73,27 @@ public class Article {
         this.description = description;
     }
 
-    public String getCreated_at() {
+    public Date getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(String created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
-    public String getPublished_at() {
+    public Date getPublished_at() {
         return published_at;
     }
 
-    public void setPublished_at(String published_at) {
+    public void setPublished_at(Date published_at) {
         this.published_at = published_at;
     }
 
-    public String getModified_at() {
+    public Date getModified_at() {
         return modified_at;
     }
 
-    public void setModified_at(String modified_at) {
+    public void setModified_at(Date modified_at) {
         this.modified_at = modified_at;
     }
 
@@ -101,15 +105,12 @@ public class Article {
         this.author = author;
     }
 
+    public int getAuthor_id() {
+        return author_id;
+    }
 
-    public Article(String title, String description, String created_at, String published_at, String modified_at, Author author, List<Category> categories) {
-        this.title = title;
-        this.description = description;
-        this.created_at = created_at;
-        this.published_at = published_at;
-        this.modified_at = modified_at;
-        this.author = author;
-        this.categories = categories;
+    public void setAuthor_id(int author_id) {
+        this.author_id = author_id;
     }
 
     public List<Category> getCategories() {
@@ -118,14 +119,6 @@ public class Article {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int[] getCategory_ids() {

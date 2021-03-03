@@ -1,12 +1,14 @@
 package stefan.toth.RestAPIProject.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.List;
 
 @Entity
 @Embeddable
+@JsonIgnoreProperties(value = {"image"},allowGetters = false,allowSetters = true)
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +18,11 @@ public class Author {
     private String lastName;
 
     @Email(message = "Email should be valid")
-    private String  email;
+    private String email;
 
     //Photo
+    @Lob
+    private Byte[] image;
 
 
     public Author() {
@@ -54,5 +58,13 @@ public class Author {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(Byte[] image) {
+        this.image = image;
     }
 }

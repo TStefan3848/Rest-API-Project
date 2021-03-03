@@ -9,8 +9,7 @@ import stefan.toth.RestAPIProject.service.CategoryService;
 import stefan.toth.RestAPIProject.utils.InvalidIdException;
 
 import javax.xml.bind.ValidationException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,10 +26,6 @@ public class CategoryController {
         return categoryService.findAll();
     }
 
-    private String dateTimeFormater(LocalDateTime localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return localDateTime.format(formatter);
-    }
 
     @GetMapping("/search")
     public Iterable<Category> customCategorySarch(@RequestParam Map<String, String> params) throws ValidationException {
@@ -53,9 +48,9 @@ public class CategoryController {
     public Category create(@RequestBody Category category) throws ValidationException {
         if (category.getTitle() == null || category.getDescription() == null)
             throw new ValidationException("Invalid request body");
-
-        category.setCreated_at(dateTimeFormater(LocalDateTime.now()));
-        category.setModified_at(dateTimeFormater(LocalDateTime.now()));
+        Date date = new Date();
+        category.setCreated_at(date);
+        category.setModified_at(date);
         return categoryService.save(category);
     }
 
@@ -73,10 +68,10 @@ public class CategoryController {
     public ResponseEntity<Category> updateEntity(@RequestBody Category category) {
         if (categoryService.findById(category.getId()).isPresent()) {
             category.setCreated_at(categoryService.findById(category.getId()).get().getCreated_at());
-            category.setModified_at(dateTimeFormater(LocalDateTime.now()));
+            category.setModified_at(new Date());
             if (category.getTitle() == null)
                 category.setTitle(categoryService.findById(category.getId()).get().getTitle());
-            if(category.getDescription() == null)
+            if (category.getDescription() == null)
                 category.setDescription(categoryService.findById(category.getId()).get().getDescription());
             return new ResponseEntity(categoryService.save(category), HttpStatus.OK);
         }

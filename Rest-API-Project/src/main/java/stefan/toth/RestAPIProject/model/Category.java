@@ -1,8 +1,10 @@
 package stefan.toth.RestAPIProject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Category {
@@ -17,10 +19,12 @@ public class Category {
     private String description;
 
     @JsonProperty("Created_at")
-    private String created_at;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    private Date created_at;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     @JsonProperty("Modified_at")
-    private String modified_at;
+    private Date modified_at;
 
     public Category() {
     }
@@ -49,19 +53,19 @@ public class Category {
         this.description = description;
     }
 
-    public String getCreated_at() {
+    public Date getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(String created_at) {
+    public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
-    public String getModified_at() {
+    public Date getModified_at() {
         return modified_at;
     }
 
-    public void setModified_at(String modified_at) {
+    public void setModified_at(Date modified_at) {
         this.modified_at = modified_at;
     }
 }

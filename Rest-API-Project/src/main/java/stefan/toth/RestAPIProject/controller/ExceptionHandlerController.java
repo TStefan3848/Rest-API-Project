@@ -24,8 +24,6 @@ public class ExceptionHandlerController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(InvalidIdException.class)
     ErrorMessage invalidIdError(InvalidIdException e) {
-        return new ErrorMessage("404",e.getMessage());
+        return new ErrorMessage("404", e.getMessage());
     }
-
-
 }
