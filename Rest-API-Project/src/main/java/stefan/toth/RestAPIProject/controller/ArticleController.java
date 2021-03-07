@@ -70,6 +70,18 @@ public class ArticleController {
         return articleService.findById(id);
     }
 
+    @GetMapping("/author/{id}")
+    public Iterable<Article> getArticlesByAuthorId(@PathVariable Integer id) throws InvalidIdException {
+        if (!authorService.existsById(id))
+            throw new InvalidIdException("Author Id was not found in the database.");
+
+        if (articleService.findByAuthor(authorService.findById(id).get()).iterator().hasNext())
+            return articleService.findByAuthor(authorService.findById(id).get());
+
+        throw new InvalidIdException("Author has no articles in the database.");
+
+    }
+
     @PutMapping("/{articleId}/categories/{categoryIds}")
     public ResponseEntity<Article> setArticleCategories(@PathVariable Integer articleId, @PathVariable int[] categoryIds) throws InvalidIdException {
         if (!articleService.existsById(articleId))

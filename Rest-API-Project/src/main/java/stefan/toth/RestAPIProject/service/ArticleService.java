@@ -6,4 +6,6 @@ import stefan.toth.RestAPIProject.model.Author;
 
 public interface ArticleService extends CrudRepository<Article, Integer> {
     Iterable<Article> findByAuthor(Author author);
+
+    Iterable<Article> findByTitle(String title);
 }

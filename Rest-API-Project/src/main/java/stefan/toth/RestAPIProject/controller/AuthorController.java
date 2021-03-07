@@ -34,12 +34,6 @@ public class AuthorController {
     @Autowired
     private ArticleService articleService;
 
-
-    @GetMapping
-    Iterable<Author> getAllAuthors() {
-        return authorService.findAll();
-    }
-
     @GetMapping("/{id}")
     Optional<Author> getAuthorById(@PathVariable Integer id) throws InvalidIdException {
         if (!authorService.existsById(id))
@@ -48,10 +42,10 @@ public class AuthorController {
         return authorService.findById(id);
     }
 
-    @GetMapping("/search")
-    Iterable<Author> getAuthorByCustomQuery(@RequestParam Map<String, String> params) throws ValidationException {
+    @GetMapping
+    Iterable<Author> getAuthorByCustomQuery(@RequestParam Map<String, String> params) {
         if (params.isEmpty())
-            throw new ValidationException("Invalid request. Make sure to add at least 1 search criteria.");
+            return authorService.findAll();
         return authorService.findByCustomQuery(params);
     }
 
@@ -68,9 +62,9 @@ public class AuthorController {
         if (!authorService.existsById(id))
             throw new InvalidIdException("Id not found in database.");
 
-        ResponseEntity<Author> responseEntity = new ResponseEntity(authorService.findById(id), HttpStatus.OK);
+        ResponseEntity<Author> responseEntity = new ResponseEntity(HttpStatus.OK);
         Iterable<Article> articleList = articleService.findByAuthor(authorService.findById(id).get());
-        for(Article article : articleList)
+        for (Article article : articleList)
             articleService.delete(article);
         authorService.deleteById(id);
         return responseEntity;
@@ -89,35 +83,5 @@ public class AuthorController {
         }
         return new ResponseEntity(author, HttpStatus.BAD_REQUEST);
     }
-
-    @PostMapping("/{id}/image")
-    public ResponseEntity<Author> setAuthorImage(@PathVariable Integer id, @RequestPart("imagefile") MultipartFile file) throws InvalidIdException {
-        if (!authorService.existsById(id))
-            throw new InvalidIdException("Id not found in database.");
-
-        imageService.saveImageFile(id, file);
-
-        return new ResponseEntity(authorService.findById(id).get(), HttpStatus.OK);
-    }
-
-    @GetMapping("{id}/image")
-    public void renderImageFromDB(@PathVariable Integer id, HttpServletResponse response) throws InvalidIdException, IOException {
-        if (!authorService.existsById(id))
-            throw new InvalidIdException("Id not found in database.");
-
-        Author author = authorService.findById(id).get();
-        if (author.getImage() != null) {
-            byte[] byteArray = new byte[author.getImage().length];
-            int i = 0;
-
-            for (Byte wrappedByte : author.getImage())
-                byteArray[i++] = wrappedByte;
-
-            response.setContentType("image/jpeg");
-            InputStream is = new ByteArrayInputStream(byteArray);
-            IOUtils.copy(is, response.getOutputStream());
-        }
-    }
-
 
 }

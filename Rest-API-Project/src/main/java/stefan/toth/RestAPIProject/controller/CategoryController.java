@@ -20,18 +20,10 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-
     @GetMapping
-    public Iterable<Category> getAllCategories() {
-        return categoryService.findAll();
-    }
-
-
-    @GetMapping("/search")
-    public Iterable<Category> customCategorySarch(@RequestParam Map<String, String> params) throws ValidationException {
+    public Iterable<Category> customCategorySarch(@RequestParam Map<String, String> params) {
         if (params.isEmpty())
-            throw new ValidationException("Invalid request. Make sure to add at least 1 search criteria.");
-
+            return categoryService.findAll();
         return categoryService.findByCustomQuery(params);
     }
 
@@ -59,7 +51,7 @@ public class CategoryController {
         if (!categoryService.existsById(id))
             throw new InvalidIdException("Id not found in database.");
 
-        ResponseEntity<Category> responseEntity = new ResponseEntity(categoryService.findById(id), HttpStatus.OK);
+        ResponseEntity<Category> responseEntity = new ResponseEntity(HttpStatus.OK);
         categoryService.deleteById(id);
         return responseEntity;
     }
