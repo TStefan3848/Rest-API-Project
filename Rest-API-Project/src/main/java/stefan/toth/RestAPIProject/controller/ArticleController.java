@@ -1,5 +1,7 @@
 package stefan.toth.RestAPIProject.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -31,26 +33,38 @@ public class ArticleController {
     @Autowired
     private CategoryService categoryService;
 
+    private Logger log = LoggerFactory.getLogger(ArticleController.class);
+
     @GetMapping
     Iterable<Article> getAllArticles() {
+        log.info("Getting all articles.");
         return articleService.findAll();
     }
 
     @PostMapping
     public Article create(@RequestBody Article article) throws ValidationException, InvalidIdException {
-        if (article.getTitle() == null || article.getDescription() == null || article.getPublished_at() == null)
+        log.info("Creating new article entry.");
+        if (article.getTitle() == null || article.getDescription() == null || article.getPublished_at() == null) {
+            log.warn("ValidationException is getting thrown.");
             throw new ValidationException("Invalid request body");
+        }
 
         if (article.getAuthor_id() != 0 && authorService.existsById(article.getAuthor_id()))
             article.setAuthor(authorService.findById(article.getAuthor_id()).get());
-        else throw new InvalidIdException("Author ID was not found in database.");
+        else {
+            log.warn("InvalidIdException is getting thrown.");
+            throw new InvalidIdException("Author ID was not found in database.");
+        }
 
         if (article.getCategory_ids() != null) {
             List<Category> categories = new ArrayList();
             for (int id_value : article.getCategory_ids()) {
                 if (categoryService.existsById(id_value))
                     categories.add(categoryService.findById(id_value).get());
-                else throw new InvalidIdException("Category ID's were not found in database.");
+                else {
+                    log.warn("InvalidIdException is getting thrown.");
+                    throw new InvalidIdException("Category ID's were not found in database.");
+                }
             }
             article.setCategories(categories);
         }
@@ -58,38 +72,50 @@ public class ArticleController {
         Date date = new Date();
         article.setCreated_at(date);
         article.setModified_at(date);
-
         return articleService.save(article);
     }
 
     @GetMapping("/{id}")
     public Optional<Article> getArticleById(@PathVariable Integer id) throws InvalidIdException {
-        if (!articleService.existsById(id))
+        log.info("Getting article by given ID.");
+        if (!articleService.existsById(id)) {
+            log.warn("InvalidIdException is getting thrown.");
             throw new InvalidIdException("Article's Id was not found in the database.");
+        }
 
         return articleService.findById(id);
     }
 
     @GetMapping("/author/{id}")
     public Iterable<Article> getArticlesByAuthorId(@PathVariable Integer id) throws InvalidIdException {
-        if (!authorService.existsById(id))
+        log.info("Getting Articles by given Author ID.");
+        if (!authorService.existsById(id)) {
+            log.warn("InvalidIdException is getting thrown.");
             throw new InvalidIdException("Author Id was not found in the database.");
+        }
 
-        if (articleService.findByAuthor(authorService.findById(id).get()).iterator().hasNext())
+        if (articleService.findByAuthor(authorService.findById(id).get()).iterator().hasNext()) {
             return articleService.findByAuthor(authorService.findById(id).get());
+        }
 
+        log.warn("InvalidIdException is getting thrown.");
         throw new InvalidIdException("Author has no articles in the database.");
 
     }
 
     @PutMapping("/{articleId}/categories/{categoryIds}")
     public ResponseEntity<Article> setArticleCategories(@PathVariable Integer articleId, @PathVariable int[] categoryIds) throws InvalidIdException {
-        if (!articleService.existsById(articleId))
+        log.info("Updating existing article's category field.");
+        if (!articleService.existsById(articleId)) {
+            log.warn("InvalidIdExceptio is getting thrown.");
             throw new InvalidIdException("Article Id was not found in the database.");
+        }
 
         for (int i : categoryIds)
-            if (!categoryService.existsById(i))
+            if (!categoryService.existsById(i)) {
+                log.warn("InvalidIdExceptio is getting thrown.");
                 throw new InvalidIdException("Category Id was not found in database.");
+            }
 
         List<Category> categories = new ArrayList<>();
         for (int id : categoryIds)
@@ -99,21 +125,28 @@ public class ArticleController {
         article.setCategories(categories);
         article.setModified_at(new Date());
 
+        log.info("Entry updated succesfully.");
         return new ResponseEntity(articleService.save(article), HttpStatus.OK);
     }
 
     @PutMapping("/{articleId}/author/{authorId}")
     public ResponseEntity<Article> setArticleAuthor(@PathVariable Integer articleId, @PathVariable Integer authorId) throws InvalidIdException {
-        if (!articleService.existsById(articleId))
+        log.info("Updating existing article's author field.");
+        if (!articleService.existsById(articleId)) {
+            log.warn("InvalidIdException is getting thrown.");
             throw new InvalidIdException("Article Id was not found in the database.");
-        if (!authorService.existsById(authorId))
+        }
+        if (!authorService.existsById(authorId)) {
+            log.warn("InvalidIdException is getting thrown.");
             throw new InvalidIdException("Author Id was not found in the database.");
+        }
 
         Article article = articleService.findById(articleId).get();
         article.setAuthor(authorService.findById(authorId).get());
         article.setModified_at(new Date());
 
         ResponseEntity<Article> responseEntity = new ResponseEntity(articleService.save(article), HttpStatus.OK);
+        log.info("Entry updated succesfully.");
         return responseEntity;
     }
 }
