@@ -1,0 +1,169 @@
+"2021-03-09 11:33:38 INFO  s.t.R.RestApiProjectApplication - Starting RestApiProjectApplication using Java 11.0.10 on DESKTOP-F4UDU2U with PID 9744 (C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project\target\classes started by Stefan in C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project)
+""2021-03-09 11:33:38 INFO  s.t.R.RestApiProjectApplication - No active profile set, falling back to default profiles: default
+""2021-03-09 11:33:39 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2021-03-09 11:33:39 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 60 ms. Found 3 JPA repository interfaces.
+""2021-03-09 11:33:40 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+""2021-03-09 11:33:40 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+""2021-03-09 11:33:40 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.43]
+""2021-03-09 11:33:40 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+""2021-03-09 11:33:40 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1770 ms
+""2021-03-09 11:33:40 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+""2021-03-09 11:33:40 INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.4.0.Final}
+""2021-03-09 11:33:40 INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+""2021-03-09 11:33:40 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+""2021-03-09 11:33:40 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+""2021-03-09 11:33:40 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+""2021-03-09 11:33:40 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+""2021-03-09 11:33:41 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2021-03-09 11:33:41 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2021-03-09 11:33:42 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2021-03-09 11:33:42 INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+""2021-03-09 11:33:42 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+""2021-03-09 11:33:42 INFO  s.t.R.RestApiProjectApplication - Started RestApiProjectApplication in 4.797 seconds (JVM running for 5.273)
+""2021-03-09 11:33:43 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+""2021-03-09 11:33:43 INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+""2021-03-09 11:33:43 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+""2021-03-09 11:33:43 INFO  s.t.R.controller.ArticleController - Getting author by custom Query
+""2021-03-09 11:33:43 INFO  s.t.R.controller.ArticleController - Getting all authors
+""2021-03-09 11:33:43 INFO  o.h.h.i.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+""2021-03-09 11:37:47 INFO  s.t.R.RestApiProjectApplication - Starting RestApiProjectApplication using Java 11.0.10 on DESKTOP-F4UDU2U with PID 5024 (C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project\target\classes started by Stefan in C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project)
+""2021-03-09 11:37:47 INFO  s.t.R.RestApiProjectApplication - No active profile set, falling back to default profiles: default
+""2021-03-09 11:37:48 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2021-03-09 11:37:48 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 3 JPA repository interfaces.
+""2021-03-09 11:37:49 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+""2021-03-09 11:37:49 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+""2021-03-09 11:37:49 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.43]
+""2021-03-09 11:37:49 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+""2021-03-09 11:37:49 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1644 ms
+""2021-03-09 11:37:49 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+""2021-03-09 11:37:49 INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.4.0.Final}
+""2021-03-09 11:37:49 INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+""2021-03-09 11:37:49 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+""2021-03-09 11:37:49 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+""2021-03-09 11:37:49 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+""2021-03-09 11:37:49 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+""2021-03-09 11:37:50 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2021-03-09 11:37:50 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2021-03-09 11:37:50 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2021-03-09 11:37:51 INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+""2021-03-09 11:37:51 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+""2021-03-09 11:37:51 INFO  s.t.R.RestApiProjectApplication - Started RestApiProjectApplication in 4.437 seconds (JVM running for 4.967)
+""2021-03-09 11:37:53 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+""2021-03-09 11:37:53 INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+""2021-03-09 11:37:53 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+""2021-03-09 11:37:53 INFO  s.t.R.controller.ArticleController - Getting author by custom Query
+""2021-03-09 11:37:53 INFO  s.t.R.controller.ArticleController - Getting all authors
+""2021-03-09 11:37:53 INFO  o.h.h.i.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+""2021-03-09 11:37:58 INFO  s.t.R.controller.ArticleController - Getting author by custom Query
+""2021-03-09 11:37:58 INFO  s.t.R.controller.ArticleController - Getting all authors
+""2021-03-09 11:40:13 INFO  s.t.R.RestApiProjectApplication - Starting RestApiProjectApplication using Java 11.0.10 on DESKTOP-F4UDU2U with PID 16044 (C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project\target\classes started by Stefan in C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project)
+""2021-03-09 11:40:13 INFO  s.t.R.RestApiProjectApplication - No active profile set, falling back to default profiles: default
+""2021-03-09 11:40:14 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2021-03-09 11:40:14 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 60 ms. Found 3 JPA repository interfaces.
+""2021-03-09 11:40:14 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+""2021-03-09 11:40:15 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+""2021-03-09 11:40:15 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.43]
+""2021-03-09 11:40:15 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+""2021-03-09 11:40:15 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1674 ms
+""2021-03-09 11:40:15 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+""2021-03-09 11:40:15 INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.4.0.Final}
+""2021-03-09 11:40:15 INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+""2021-03-09 11:40:15 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+""2021-03-09 11:40:15 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+""2021-03-09 11:40:15 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+""2021-03-09 11:40:15 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+""2021-03-09 11:40:16 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2021-03-09 11:40:16 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2021-03-09 11:40:17 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2021-03-09 11:40:17 INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+""2021-03-09 11:40:17 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+""2021-03-09 11:40:17 INFO  s.t.R.RestApiProjectApplication - Started RestApiProjectApplication in 4.555 seconds (JVM running for 5.066)
+""2021-03-09 11:42:18 INFO  s.t.R.RestApiProjectApplication - Starting RestApiProjectApplication using Java 11.0.10 on DESKTOP-F4UDU2U with PID 8476 (C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project\target\classes started by Stefan in C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project)
+""2021-03-09 11:42:18 INFO  s.t.R.RestApiProjectApplication - No active profile set, falling back to default profiles: default
+""2021-03-09 11:42:19 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2021-03-09 11:42:19 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 64 ms. Found 3 JPA repository interfaces.
+""2021-03-09 11:42:20 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+""2021-03-09 11:42:20 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+""2021-03-09 11:42:20 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.43]
+""2021-03-09 11:42:20 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+""2021-03-09 11:42:20 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1634 ms
+""2021-03-09 11:42:20 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+""2021-03-09 11:42:20 INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.4.0.Final}
+""2021-03-09 11:42:20 INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+""2021-03-09 11:42:20 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+""2021-03-09 11:42:21 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+""2021-03-09 11:42:21 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+""2021-03-09 11:42:21 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+""2021-03-09 11:42:22 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2021-03-09 11:42:22 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2021-03-09 11:42:22 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2021-03-09 11:42:22 INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+""2021-03-09 11:42:23 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+""2021-03-09 11:42:23 INFO  s.t.R.RestApiProjectApplication - Started RestApiProjectApplication in 4.521 seconds (JVM running for 4.973)
+""2021-03-09 11:42:51 INFO  s.t.R.RestApiProjectApplication - Starting RestApiProjectApplication using Java 11.0.10 on DESKTOP-F4UDU2U with PID 13864 (C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project\target\classes started by Stefan in C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project)
+""2021-03-09 11:42:51 INFO  s.t.R.RestApiProjectApplication - No active profile set, falling back to default profiles: default
+""2021-03-09 11:42:51 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2021-03-09 11:42:51 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 52 ms. Found 3 JPA repository interfaces.
+""2021-03-09 11:42:52 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+""2021-03-09 11:42:52 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+""2021-03-09 11:42:52 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.43]
+""2021-03-09 11:42:52 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+""2021-03-09 11:42:52 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1598 ms
+""2021-03-09 11:42:52 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+""2021-03-09 11:42:52 INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.4.0.Final}
+""2021-03-09 11:42:52 INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+""2021-03-09 11:42:53 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+""2021-03-09 11:42:53 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+""2021-03-09 11:42:53 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+""2021-03-09 11:42:53 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+""2021-03-09 11:42:54 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2021-03-09 11:42:54 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2021-03-09 11:42:54 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2021-03-09 11:42:54 INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+""2021-03-09 11:42:54 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+""2021-03-09 11:42:54 INFO  s.t.R.RestApiProjectApplication - Started RestApiProjectApplication in 4.261 seconds (JVM running for 4.684)
+""2021-03-09 11:46:33 INFO  s.t.R.RestApiProjectApplication - Starting RestApiProjectApplication using Java 11.0.10 on DESKTOP-F4UDU2U with PID 9324 (C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project\target\classes started by Stefan in C:\Users\Stefan\Desktop\Project\Rest-API-Project\Rest-API-Project)
+""2021-03-09 11:46:33 INFO  s.t.R.RestApiProjectApplication - No active profile set, falling back to default profiles: default
+""2021-03-09 11:46:33 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2021-03-09 11:46:33 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 69 ms. Found 3 JPA repository interfaces.
+""2021-03-09 11:46:34 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+""2021-03-09 11:46:34 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+""2021-03-09 11:46:34 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.43]
+""2021-03-09 11:46:34 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+""2021-03-09 11:46:34 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1682 ms
+""2021-03-09 11:46:34 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+""2021-03-09 11:46:35 INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.4.0.Final}
+""2021-03-09 11:46:35 INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+""2021-03-09 11:46:35 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+""2021-03-09 11:46:35 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+""2021-03-09 11:46:35 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+""2021-03-09 11:46:35 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+""2021-03-09 11:46:36 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2021-03-09 11:46:36 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2021-03-09 11:46:36 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2021-03-09 11:46:36 INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+""2021-03-09 11:46:37 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+""2021-03-09 11:46:37 INFO  s.t.R.RestApiProjectApplication - Started RestApiProjectApplication in 4.737 seconds (JVM running for 5.157)
+""2021-03-09 11:46:52 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+""2021-03-09 11:46:52 INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+""2021-03-09 11:46:52 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+""2021-03-09 11:46:52 INFO  s.t.R.controller.ArticleController - Getting author by custom Query
+""2021-03-09 11:46:52 INFO  s.t.R.controller.ArticleController - Getting all authors
+""2021-03-09 11:46:52 INFO  o.h.h.i.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+""2021-03-09 11:46:56 INFO  s.t.R.controller.ArticleController - Getting author by custom Query
+""2021-03-09 11:46:56 INFO  s.t.R.controller.ArticleController - Getting all authors
+""2021-03-09 11:47:00 INFO  s.t.R.controller.ArticleController - Getting author by custom Query
+""2021-03-09 11:47:00 INFO  s.t.R.controller.ArticleController - Getting all authors
+"

@@ -3,6 +3,9 @@ package stefan.toth.RestAPIProject.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,14 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    private void simulateSlowService() {
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Logger log = LoggerFactory.getLogger(CategoryController.class);
 
     @GetMapping
@@ -34,6 +45,7 @@ public class CategoryController {
         return categoryService.findByCustomQuery(params);
     }
 
+    @Cacheable(value = "CategoriesById", key = "#id")
     @GetMapping("/{id}")
     public Optional<Category> getCategoryById(@PathVariable Integer id) throws InvalidIdException {
         log.info("Fetching category by Id.");
@@ -42,6 +54,7 @@ public class CategoryController {
             throw new InvalidIdException("Id not found in database.");
         }
 
+        simulateSlowService();
         return categoryService.findById(id);
 
     }
@@ -59,6 +72,7 @@ public class CategoryController {
         return categoryService.save(category);
     }
 
+    @CacheEvict(value = {"Categories", "CategoriesById"}, key = "#id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Category> deleteCategory(@PathVariable Integer id) throws InvalidIdException {
         log.info("Deleting entry by Id");
@@ -72,6 +86,7 @@ public class CategoryController {
         return responseEntity;
     }
 
+    @CachePut(value = "Categories")
     @PutMapping
     public ResponseEntity<Category> updateEntity(@RequestBody Category category) {
         log.info("Updating existing entity.");

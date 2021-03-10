@@ -4,6 +4,8 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +46,7 @@ public class ImageController {
     }
 
     //Todo bad practice. not efficient byte cu byte
+    @Cacheable(value = "ImageByAuthor", key = "#id")
     @GetMapping("/authors/{id}/image")
     public void renderImageFromDB(@PathVariable Integer id, HttpServletResponse response) throws InvalidIdException, IOException {
         log.info("Fetching image from database.");
@@ -52,9 +55,10 @@ public class ImageController {
             throw new InvalidIdException("Id not found in database.");
         }
 
-        if (authorService.findById(id).get().getImage() == null){
+        if (authorService.findById(id).get().getImage() == null) {
             log.info("InvalidIdException is getting thrown.");
-            throw new InvalidIdException("Author has no image in the database");}
+            throw new InvalidIdException("Author has no image in the database");
+        }
 
         Author author = authorService.findById(id).get();
         if (author.getImage() != null) {
