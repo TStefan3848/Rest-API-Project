@@ -4,10 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +35,6 @@ public class ArticleController {
 
     private Logger log = LoggerFactory.getLogger(ArticleController.class);
 
-    @Cacheable("articles")
     @GetMapping
     Iterable<Article> getAllArticles() {
         log.info("Getting all articles.");
@@ -80,7 +75,6 @@ public class ArticleController {
         return articleService.save(article);
     }
 
-    @Cacheable(value = "articlesById", key = "#id")
     @GetMapping("/{id}")
     public Optional<Article> getArticleById(@PathVariable Integer id) throws InvalidIdException {
         log.info("Getting article by given ID.");
@@ -92,7 +86,6 @@ public class ArticleController {
         return articleService.findById(id);
     }
 
-    @Cacheable(value = "articlesByAuthor", key = "#id")
     @GetMapping("/author/{id}")
     public Iterable<Article> getArticlesByAuthorId(@PathVariable Integer id) throws InvalidIdException {
         log.info("Getting Articles by given Author ID.");
@@ -110,7 +103,6 @@ public class ArticleController {
 
     }
 
-    @CachePut(value = "articles")
     @PutMapping("/{articleId}/categories/{categoryIds}")
     public ResponseEntity<Article> setArticleCategories(@PathVariable Integer articleId, @PathVariable int[] categoryIds) throws InvalidIdException {
         log.info("Updating existing article's category field.");
@@ -137,7 +129,6 @@ public class ArticleController {
         return new ResponseEntity(articleService.save(article), HttpStatus.OK);
     }
 
-    @CachePut(value = "articles")
     @PutMapping("/{articleId}/author/{authorId}")
     public ResponseEntity<Article> setArticleAuthor(@PathVariable Integer articleId, @PathVariable Integer authorId) throws InvalidIdException {
         log.info("Updating existing article's author field.");
@@ -157,21 +148,5 @@ public class ArticleController {
         ResponseEntity<Article> responseEntity = new ResponseEntity(articleService.save(article), HttpStatus.OK);
         log.info("Entry updated succesfully.");
         return responseEntity;
-    }
-
-    @Caching(evict = {
-            @CacheEvict(value = "articles", key = "#id"),
-            @CacheEvict(value = "articlesByAuthor", key = "#id"),
-            @CacheEvict(value = "articlesById", key = "#id")
-    })
-    @DeleteMapping
-    public void deleteArticle(@PathVariable Integer id) throws InvalidIdException {
-        log.info("Deleting article by ID.");
-        if (!articleService.existsById(id)) {
-            log.warn("InvalidIdException is getting thrown.");
-            throw new InvalidIdException("Article's Id was not found in database.");
-        }
-        log.info("Article deleted succesfully.");
-        articleService.deleteById(id);
     }
 }
