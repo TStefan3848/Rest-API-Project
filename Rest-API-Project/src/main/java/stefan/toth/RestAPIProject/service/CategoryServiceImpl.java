@@ -1,6 +1,7 @@
 package stefan.toth.RestAPIProject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import stefan.toth.RestAPIProject.model.Category;
 
 import javax.persistence.EntityManager;
@@ -17,6 +18,7 @@ public class CategoryServiceImpl implements CategoryServiceCustom {
     @Autowired
     private EntityManager entityManager;
 
+    @Cacheable("Categories")
     public Iterable<Category> findByCustomQuery(Map<String, String> params) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Category> criteriaQuery = criteriaBuilder.createQuery(Category.class);

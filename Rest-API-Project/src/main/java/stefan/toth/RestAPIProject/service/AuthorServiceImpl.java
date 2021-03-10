@@ -1,6 +1,7 @@
 package stefan.toth.RestAPIProject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import stefan.toth.RestAPIProject.model.Author;
 
 import javax.persistence.EntityManager;
@@ -17,6 +18,7 @@ public class AuthorServiceImpl implements AuthorServiceCustom {
     @Autowired
     private EntityManager entityManager;
 
+    @Cacheable("authors")
     public Iterable<Author> findByCustomQuery(Map<String, String> params) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Author> criteriaQuery = criteriaBuilder.createQuery(Author.class);

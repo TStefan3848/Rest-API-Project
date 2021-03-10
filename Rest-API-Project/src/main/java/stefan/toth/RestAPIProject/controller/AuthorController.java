@@ -3,6 +3,9 @@ package stefan.toth.RestAPIProject.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +35,7 @@ public class AuthorController {
 
     private Logger log = LoggerFactory.getLogger(ArticleController.class);
 
+    @Cacheable("AuthorsById")
     @GetMapping("/{id}")
     Optional<Author> getAuthorById(@PathVariable Integer id) throws InvalidIdException {
         log.info("Getting Author by Id");
@@ -65,6 +69,7 @@ public class AuthorController {
         return authorService.save(author);
     }
 
+    @CacheEvict(value = {"authors", "AuthorsById"}, key = "#id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Author> deleteCategory(@PathVariable Integer id) throws InvalidIdException {
         log.info("Deleting author with ID" + id);
@@ -82,6 +87,7 @@ public class AuthorController {
         return responseEntity;
     }
 
+    @CachePut(value = {"authors", "AuthorsById"}, key = "#author.id")
     @PutMapping
     public ResponseEntity<Author> updateEntity(@RequestBody Author author) {
         log.info("Updating existing entry.");
