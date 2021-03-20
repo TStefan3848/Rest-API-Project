@@ -3,9 +3,6 @@ package stefan.toth.RestAPIProject.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,72 +22,84 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    private Logger log = LoggerFactory.getLogger(CategoryController.class);
+    private final Logger log = LoggerFactory.getLogger(CategoryController.class);
 
-    private void simulateSlowService() {
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * @param params Map that contains query parameters used for searching.
+     * @return All categories that respect the given queries. If none were given returns all categories.
+     */
     @GetMapping
-    public Iterable<Category> customCategorySarch(@RequestParam Map<String, String> params) {
-        log.info("Getting category by custom query");
+    public Iterable<Category> customCategorySearch(@RequestParam Map<String, String> params) {
         if (params.isEmpty()) {
-            log.info("There were no querries found, fetching all categories.");
+            log.info("Fetched all categories.");
             return categoryService.findAll();
         }
+
+        log.info("Fetched categories by given query parameters.");
         return categoryService.findByCustomQuery(params);
     }
 
-    @Cacheable(value = "CategoriesById", key = "#id")
+    /**
+     * @param id Identifier of the Category that we want to fetch
+     * @return Category that has the given ID.
+     * @throws InvalidIdException When the given ID doesn't exist in the db.
+     */
     @GetMapping("/{id}")
     public Optional<Category> getCategoryById(@PathVariable Integer id) throws InvalidIdException {
-        log.info("Fetching category by Id.");
         if (!categoryService.existsById(id)) {
-            log.warn("InvalidIdException is getting thrown.");
+            log.warn("User inserted an invalid ID.");
             throw new InvalidIdException("Id not found in database.");
         }
 
-        simulateSlowService();
+        log.info("Fetched category by ID: " + id);
         return categoryService.findById(id);
 
     }
 
+    /**
+     * @param category A category object that gets added into the database.
+     * @return The category object that was added and the HTTP Response code.
+     * @throws ValidationException User inserted a wrong request body.
+     */
     @PostMapping
     public Category create(@RequestBody Category category) throws ValidationException {
-        log.info("Creating new Category entry.");
         if (category.getTitle() == null || category.getDescription() == null) {
-            log.warn("ValidationException is getting thrown.");
+            log.warn("User inserted an invalid request body.");
             throw new ValidationException("Invalid request body");
         }
+
+        log.info("New Category was added into the database.");
         Date date = new Date();
         category.setCreated_at(date);
         category.setModified_at(date);
         return categoryService.save(category);
     }
 
-
-    @CacheEvict(value = {"Categories", "CategoriesById"}, key = "#id")
+    /**
+     * @param id Identifier of the Category we are looking to delete.
+     * @return Response entity that contains the HTTP Response code.
+     * @throws InvalidIdException User is  trying to delete a category that doesn't exist in the db.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Category> deleteCategory(@PathVariable Integer id) throws InvalidIdException {
-        log.info("Deleting entry by Id");
         if (!categoryService.existsById(id)) {
-            log.warn("InvalidIdException is getting thrown.");
+            log.warn("User is trying to delete nonexistent category.");
             throw new InvalidIdException("Id not found in database.");
         }
 
-        ResponseEntity<Category> responseEntity = new ResponseEntity(HttpStatus.OK);
+        ResponseEntity<Category> responseEntity = new ResponseEntity<>(HttpStatus.OK);
+        log.info("Category with ID: " + id + " was deleted.");
         categoryService.deleteById(id);
         return responseEntity;
     }
 
-    @CachePut(value = {"Categories", "CategoriesById"})
+    /**
+     * @param category Category object that will be updated, found by category.id
+     * @return Response entity that contains the HTTP Response code.
+     */
     @PutMapping
     public ResponseEntity<Category> updateEntity(@RequestBody Category category) {
-        log.info("Updating existing entity.");
+
         if (categoryService.findById(category.getId()).isPresent()) {
             category.setCreated_at(categoryService.findById(category.getId()).get().getCreated_at());
             category.setModified_at(new Date());
@@ -98,11 +107,11 @@ public class CategoryController {
                 category.setTitle(categoryService.findById(category.getId()).get().getTitle());
             if (category.getDescription() == null)
                 category.setDescription(categoryService.findById(category.getId()).get().getDescription());
-            log.info("Entry updated succesfully.");
-            return new ResponseEntity(categoryService.save(category), HttpStatus.OK);
+            log.info("Existing entity was updated.");
+            return new ResponseEntity<>(categoryService.save(category), HttpStatus.OK);
         }
-        log.info("Entity was not updated.");
-        return new ResponseEntity(category, HttpStatus.BAD_REQUEST);
+        log.warn("Invalid category to update.");
+        return new ResponseEntity<>(category, HttpStatus.BAD_REQUEST);
     }
 
 

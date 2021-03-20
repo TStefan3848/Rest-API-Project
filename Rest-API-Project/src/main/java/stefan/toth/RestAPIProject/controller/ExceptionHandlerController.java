@@ -15,7 +15,7 @@ import javax.xml.bind.ValidationException;
 @ControllerAdvice
 public class ExceptionHandlerController {
 
-    private Logger log = LoggerFactory.getLogger(ExceptionHandlerController.class);
+    private final Logger log = LoggerFactory.getLogger(ExceptionHandlerController.class);
 
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)

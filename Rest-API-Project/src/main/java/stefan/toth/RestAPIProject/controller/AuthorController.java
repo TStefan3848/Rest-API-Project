@@ -3,9 +3,6 @@ package stefan.toth.RestAPIProject.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +10,6 @@ import stefan.toth.RestAPIProject.model.Article;
 import stefan.toth.RestAPIProject.model.Author;
 import stefan.toth.RestAPIProject.service.ArticleService;
 import stefan.toth.RestAPIProject.service.AuthorService;
-import stefan.toth.RestAPIProject.service.ImageServiceCustom;
 import stefan.toth.RestAPIProject.utils.InvalidIdException;
 
 import javax.xml.bind.ValidationException;
@@ -28,69 +24,89 @@ public class AuthorController {
     private AuthorService authorService;
 
     @Autowired
-    private ImageServiceCustom imageService;
-
-    @Autowired
     private ArticleService articleService;
 
-    private Logger log = LoggerFactory.getLogger(ArticleController.class);
+    private final Logger log = LoggerFactory.getLogger(ArticleController.class);
 
-    @Cacheable("AuthorsById")
-    @GetMapping("/{id}")
-    Optional<Author> getAuthorById(@PathVariable Integer id) throws InvalidIdException {
-        log.info("Getting Author by Id");
-        if (!authorService.existsById(id)) {
-            log.warn("InvalidIDException is getting thrown.");
-            throw new InvalidIdException("Id not found in database");
-        }
-
-        return authorService.findById(id);
-    }
-
+    /**
+     * @param params Simple Map that contains all given queries
+     * @return Returns all authors from the database by given queries.
+     */
     @GetMapping
-    Iterable<Author> getAuthorByCustomQuery(@RequestParam Map<String, String> params) {
-        log.info("Getting author by custom Query");
+    public Iterable<Author> getAuthorByCustomQuery(@RequestParam Map<String, String> params) {
         if (params.isEmpty()) {
-            log.info("Getting all authors");
+            log.info("Fetched all authors.");
             return authorService.findAll();
         }
 
+        log.info("Fetched authors by query.");
         return authorService.findByCustomQuery(params);
     }
 
+    /**
+     * @param id - Author's ID that we are looking for.
+     * @return - returns author with given id
+     * @throws InvalidIdException If there is no author with given ID.
+     */
+    @GetMapping("/{id}")
+    public Optional<Author> getAuthorById(@PathVariable Integer id) throws InvalidIdException {
+        if (!authorService.existsById(id)) {
+            log.warn("User tried to fetch an invalid author.");
+            throw new InvalidIdException("Id not found in database");
+        }
+
+        log.info("Fetched author with ID: " + id);
+        return authorService.findById(id);
+    }
+
+    /**
+     * @param author Author object that we will add to the database.
+     * @return - HTTP Response code
+     * @throws ValidationException If the request body is invalid.
+     */
     @PostMapping
     public Author create(@RequestBody Author author) throws ValidationException {
-        log.info("Creating new Author entry");
         if (author.getFirstName() == null || author.getLastName() == null) {
-            log.warn("ValidationException is getting thrown.");
+            log.warn("User inserted an invalid request body.");
             throw new ValidationException("Invalid request body");
         }
 
+        log.info("Added author to db.");
         return authorService.save(author);
     }
 
-    @CacheEvict(value = {"authors", "AuthorsById"}, key = "#id")
+    /**
+     * @param id Identifier of the Author that gets deleted
+     * @return Response entity containing deleted author and HTTP Response code
+     * @throws InvalidIdException If there is no author with given ID.
+     */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Author> deleteCategory(@PathVariable Integer id) throws InvalidIdException {
-        log.info("Deleting author with ID" + id);
+    public ResponseEntity deleteCategory(@PathVariable Integer id) throws InvalidIdException {
         if (!authorService.existsById(id)) {
-            log.warn("InvalidIdException is getting thrown.");
+            log.warn("User tried to find an nonexistent author.");
             throw new InvalidIdException("Id not found in database.");
         }
 
 
-        ResponseEntity<Author> responseEntity = new ResponseEntity(HttpStatus.OK);
+        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.OK);
         Iterable<Article> articleList = articleService.findByAuthor(authorService.findById(id).get());
-        for (Article article : articleList)
+        for (Article article : articleList) {
+            log.info("Deleted article who's Author is " + authorService.findById(id).get().getLastName());
             articleService.delete(article);
+        }
+
         authorService.deleteById(id);
+        log.info("Deleted author with ID" + id);
         return responseEntity;
     }
 
-    @CachePut(value = {"authors", "AuthorsById"}, key = "#author.id")
+    /**
+     * @param author An Author object that is used to update an existing Author
+     *               found by author.id
+     * @return Response entity containing updated author and HTTP Response code
+     */
     @PutMapping
     public ResponseEntity<Author> updateEntity(@RequestBody Author author) {
-        log.info("Updating existing entry.");
         if (authorService.findById(author.getId()).isPresent()) {
             if (author.getFirstName() == null)
                 author.setFirstName(authorService.findById(author.getId()).get().getFirstName());
@@ -99,11 +115,11 @@ public class AuthorController {
             if (author.getEmail() == null)
                 author.setEmail(authorService.findById(author.getId()).get().getEmail());
 
-            log.info("Entry updated succesfully.");
-            return new ResponseEntity(authorService.save(author), HttpStatus.OK);
+            log.info("Author updated successfully.");
+            return new ResponseEntity<>(authorService.save(author), HttpStatus.OK);
         }
-        log.info("Entry was not updated.");
-        return new ResponseEntity(author, HttpStatus.BAD_REQUEST);
+        log.warn("Author doesn't exist in db.");
+        return new ResponseEntity<>(author, HttpStatus.BAD_REQUEST);
     }
 
 }

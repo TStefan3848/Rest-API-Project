@@ -3,20 +3,20 @@ package stefan.toth.RestAPIProject.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import stefan.toth.RestAPIProject.model.Author;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
 
-@Service
-public class ImageServiceImpl implements ImageServiceCustom {
+@Component
+public class ImageServiceImpl implements ImageService {
 
     @Autowired
     private AuthorService authorService;
 
-    private Logger log = LoggerFactory.getLogger(ImageServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(ImageServiceImpl.class);
 
     @Override
     @Transactional
