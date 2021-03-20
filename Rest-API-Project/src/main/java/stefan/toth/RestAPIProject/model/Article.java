@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@JsonIgnoreProperties(value = {"author_id","category_ids"},allowGetters = false,allowSetters = true)
+@JsonIgnoreProperties(value = {"author_id","category_ids"},allowSetters = true)
 public class Article {
 
     @Id
