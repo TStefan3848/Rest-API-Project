@@ -52,7 +52,7 @@ public class ImageController {
     //Todo bad practice. not efficient byte cu byte
 
     /**
-     * @param id       Identifier of the Author whose image gets fetched..
+     * @param id Identifier of the Author whose image gets fetched..
      * @param response Http response
      * @throws InvalidIdException User tried to add a photo to a nonexistent author.
      * @throws IOException        File exception

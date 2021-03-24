@@ -1,7 +1,15 @@
 package stefan.toth.RestAPIProject.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "Roles")
 public class UserRole {
@@ -13,26 +21,7 @@ public class UserRole {
 
     private String name;
 
-    public UserRole() {
-    }
-
     public UserRole(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 }
