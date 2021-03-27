@@ -1,10 +1,10 @@
 package stefan.toth.RestAPIProject.utils;
 
-public class ErrorMessage {
+public class ResponseMessage {
     private String status;
     private String message;
 
-    public ErrorMessage(String status, String message) {
+    public ResponseMessage(String status, String message) {
         this.status = status;
         this.message = message;
     }

@@ -33,7 +33,7 @@ public class AuthorController {
      * @return Returns all authors from the database by given queries.
      */
     @GetMapping
-    public Iterable<Author> getAuthorByCustomQuery(@RequestParam Map<String, String> params) {
+    public Iterable<Author> getAuthorByCustomQuery(@RequestParam Map<String, String> params){
         if (params.isEmpty()) {
             log.info("Fetched all authors.");
             return authorService.findAll();
