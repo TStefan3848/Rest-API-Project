@@ -51,6 +51,8 @@ public class JWTUtility implements Serializable {
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
+    // Generates token by defining claims of the token like Expiration, Subject, ID
+    // Signs the JWT using the HS512 algorithm and the secret key.
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
@@ -61,6 +63,7 @@ public class JWTUtility implements Serializable {
                 .compact();
     }
 
+    // Takes user details and token and checks if the token is valid
     public boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));

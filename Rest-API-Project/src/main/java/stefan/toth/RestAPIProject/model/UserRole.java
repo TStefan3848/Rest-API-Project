@@ -1,6 +1,5 @@
 package stefan.toth.RestAPIProject.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "Roles")
-public class UserRole {
+public class UserRole{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
