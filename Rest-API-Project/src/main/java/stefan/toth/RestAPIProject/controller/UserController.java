@@ -6,15 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import stefan.toth.RestAPIProject.dto.JwtRequest;
+import stefan.toth.RestAPIProject.dto.JwtResponse;
+import stefan.toth.RestAPIProject.dto.ResponseMessage;
+import stefan.toth.RestAPIProject.exception.InvalidIdException;
 import stefan.toth.RestAPIProject.model.User;
+import stefan.toth.RestAPIProject.service.JWTService;
 import stefan.toth.RestAPIProject.service.UserService;
 import stefan.toth.RestAPIProject.model.UserRole;
-import stefan.toth.RestAPIProject.utils.*;
 
 import javax.xml.bind.ValidationException;
 import java.util.HashSet;
@@ -24,11 +27,12 @@ import java.util.Set;
 @RequestMapping("user")
 public class UserController {
 
+    //TODO Login Controller
     @Autowired
     private UserService userService;
 
     @Autowired
-    private JWTUtility jwtUtility;
+    private JWTService jwtService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -64,7 +68,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws BadCredentialsException {
+    public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         jwtRequest.getUsername(),
@@ -75,7 +79,7 @@ public class UserController {
         final UserDetails userDetails = userService.loadUserByUsername(jwtRequest.getUsername());
 
         log.debug("Generating user token");
-        final String token = jwtUtility.generateToken(userDetails);
+        final String token = jwtService.generateToken(userDetails);
 
 
         log.info("User was authenticated.");

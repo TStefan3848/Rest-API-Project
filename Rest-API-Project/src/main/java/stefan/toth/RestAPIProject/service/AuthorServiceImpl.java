@@ -2,7 +2,6 @@ package stefan.toth.RestAPIProject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Component;
@@ -68,8 +67,9 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Caching(evict = {@CacheEvict(value = "authors", allEntries = true),
             @CacheEvict(value = "authors-query", allEntries = true),
-            @CacheEvict(value = "authors-exists-id", key = "author.id")},
-            put = {@CachePut(value = "authors-id", key = "#author.id")})
+            @CacheEvict(value = "authors-exists-id", allEntries = true),
+            @CacheEvict(value = "authors-id", allEntries = true)}
+    )
     public Author save(Author author) {
         return authorRepository.save(author);
     }

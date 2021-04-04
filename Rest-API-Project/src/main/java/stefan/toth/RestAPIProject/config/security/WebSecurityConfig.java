@@ -1,4 +1,4 @@
-package stefan.toth.RestAPIProject.security;
+package stefan.toth.RestAPIProject.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +13,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import stefan.toth.RestAPIProject.service.UserService;
 
+// Access Control Layer
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private UserService userService;
@@ -46,8 +47,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
+                .exceptionHandling().authenticationEntryPoint(new HttpUnauthorizedEntryPoint())
+                .and()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 }

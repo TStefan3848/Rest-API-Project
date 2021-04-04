@@ -1,4 +1,4 @@
-package stefan.toth.RestAPIProject.utils;
+package stefan.toth.RestAPIProject.exception;
 
 public class InvalidIdException extends Exception{
 

@@ -15,6 +15,7 @@ import java.util.Optional;
 @Component
 public class ArticleServiceImpl implements ArticleService {
 
+    //TODO Fix caching... u can't have article.id etc
     @Autowired
     private ArticleRepository articleRepository;
 
@@ -68,7 +69,7 @@ public class ArticleServiceImpl implements ArticleService {
             @CacheEvict(value = "articles", allEntries = true),
             @CacheEvict(value = "articles-title", allEntries = true),
             @CacheEvict(value = "articles-author", allEntries = true),
-            @CacheEvict(value = "articles-exists-id", key = "#article.id")
+            @CacheEvict(value = "articles-exists-id", allEntries = true)
     })
     public void delete(Article article) {
         articleRepository.delete(article);

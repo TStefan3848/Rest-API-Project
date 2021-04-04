@@ -12,7 +12,7 @@ import stefan.toth.RestAPIProject.model.Category;
 import stefan.toth.RestAPIProject.service.ArticleService;
 import stefan.toth.RestAPIProject.service.AuthorService;
 import stefan.toth.RestAPIProject.service.CategoryService;
-import stefan.toth.RestAPIProject.utils.InvalidIdException;
+import stefan.toth.RestAPIProject.exception.InvalidIdException;
 
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;

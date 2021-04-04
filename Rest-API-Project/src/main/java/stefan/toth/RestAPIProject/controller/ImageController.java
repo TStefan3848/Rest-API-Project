@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import stefan.toth.RestAPIProject.model.Author;
 import stefan.toth.RestAPIProject.service.AuthorService;
 import stefan.toth.RestAPIProject.service.ImageService;
-import stefan.toth.RestAPIProject.utils.InvalidIdException;
+import stefan.toth.RestAPIProject.exception.InvalidIdException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;

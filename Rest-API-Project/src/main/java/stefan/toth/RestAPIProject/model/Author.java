@@ -29,4 +29,6 @@ public class Author {
     //Photo
     @Lob
     private Byte[] image;
+
+    //TODO Authentication based on email/password add password
 }
