@@ -49,7 +49,6 @@ public class ImageController {
         return new ResponseEntity<>(authorService.findById(id).get(), HttpStatus.OK);
     }
 
-    //Todo bad practice. not efficient byte cu byte
 
     /**
      * @param id Identifier of the Author whose image gets fetched..

@@ -8,7 +8,6 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class RestApiProjectApplication {
 
-    //TODO - Ignore log files + delete already pushed logs.
     public static void main(String[] args) {
             SpringApplication.run(RestApiProjectApplication.class, args);
     }

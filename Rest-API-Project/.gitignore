@@ -33,5 +33,4 @@ build/
 .vscode/
 
 application.properties
-AppLogs.log
-*.AppLogs
+Logs

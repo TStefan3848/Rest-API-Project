@@ -27,7 +27,6 @@ import java.util.Set;
 @RequestMapping("user")
 public class UserController {
 
-    //TODO Login Controller
     @Autowired
     private UserService userService;
 
