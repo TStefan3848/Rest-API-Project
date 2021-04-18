@@ -1,4 +1,4 @@
-package stefan.toth.RestAPIProject.utils;
+package stefan.toth.RestAPIProject.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -13,9 +13,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JWTUtility implements Serializable {
+public class JWTServiceImpl implements JWTService, Serializable {
     private static final long serialVersionUID = 234234523523L;
 
+    //TODO Ca sa poti modifica un articol trebuie sa fii authorul art respectiv
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
     private final String secretKey = "jwtsecret";
@@ -68,6 +69,4 @@ public class JWTUtility implements Serializable {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-
-
 }

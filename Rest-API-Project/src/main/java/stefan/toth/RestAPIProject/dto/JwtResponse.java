@@ -1,4 +1,4 @@
-package stefan.toth.RestAPIProject.utils;
+package stefan.toth.RestAPIProject.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

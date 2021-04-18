@@ -4,12 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import stefan.toth.RestAPIProject.utils.InvalidIdException;
-import stefan.toth.RestAPIProject.utils.ResponseMessage;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.annotation.*;
+import stefan.toth.RestAPIProject.exception.InvalidIdException;
+import stefan.toth.RestAPIProject.dto.ResponseMessage;
+
 
 import javax.xml.bind.ValidationException;
 
@@ -35,10 +34,18 @@ public class ExceptionHandlerController {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException.class)
     ResponseMessage badCredentialsError(BadCredentialsException e) {
         log.debug("Handling BadCredentialsException");
-        return new ResponseMessage("400", e.getMessage());
+        return new ResponseMessage("401", "Invalid password.");
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(AuthenticationException.class)
+    ResponseMessage usernameNotFound(AuthenticationException e) {
+        log.debug("Handling UsernameNotFoundException");
+        return new ResponseMessage("401", e.getMessage());
     }
 }

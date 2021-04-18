@@ -1,10 +1,12 @@
-package stefan.toth.RestAPIProject.model;
+package stefan.toth.RestAPIProject.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import stefan.toth.RestAPIProject.model.User;
+import stefan.toth.RestAPIProject.model.UserRole;
 
 import java.util.ArrayList;
 import java.util.Collection;
