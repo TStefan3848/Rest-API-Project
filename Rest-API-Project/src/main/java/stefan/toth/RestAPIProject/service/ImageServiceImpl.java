@@ -3,6 +3,7 @@ package stefan.toth.RestAPIProject.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import stefan.toth.RestAPIProject.model.Author;
@@ -18,6 +19,7 @@ public class ImageServiceImpl implements ImageService {
 
     private final Logger log = LoggerFactory.getLogger(ImageServiceImpl.class);
 
+    @Cacheable(value = "images", key = "#author_id")
     @Override
     @Transactional
     public void saveImageFile(Integer author_id, MultipartFile file) {
