@@ -17,6 +17,7 @@ import stefan.toth.RestAPIProject.exception.InvalidIdException;
 import javax.xml.bind.ValidationException;
 import java.util.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("articles")
 public class ArticleController {
