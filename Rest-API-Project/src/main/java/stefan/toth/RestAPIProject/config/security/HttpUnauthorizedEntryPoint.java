@@ -16,7 +16,6 @@ public class HttpUnauthorizedEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
         log.info("Pre-authentication entry point called. Rejecting access");
-        httpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
         httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
     }
 }
