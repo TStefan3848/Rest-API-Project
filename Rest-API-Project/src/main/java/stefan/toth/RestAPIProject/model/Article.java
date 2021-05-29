@@ -46,7 +46,7 @@ public class Article {
     private int author_id;
 
     @JsonProperty("Categories")
-    @OneToMany
+    @ManyToMany
     private List<Category> categories;
 
     @Transient

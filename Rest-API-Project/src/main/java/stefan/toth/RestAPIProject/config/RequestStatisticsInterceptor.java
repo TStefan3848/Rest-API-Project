@@ -22,7 +22,8 @@ public class RequestStatisticsInterceptor extends EmptyInterceptor implements Ha
         long startTime = System.currentTimeMillis();
         Runtime runtime = Runtime.getRuntime();
         request.setAttribute(START_TIME, startTime);
-        request.setAttribute(INITIAL_USED_MEMORY, runtime.maxMemory() - runtime.freeMemory());
+        long value = runtime.maxMemory() - runtime.freeMemory();
+        request.setAttribute(INITIAL_USED_MEMORY, value);
         return true;
     }
 
