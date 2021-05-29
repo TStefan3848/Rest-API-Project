@@ -20,11 +20,10 @@ public class RequestStatisticsInterceptor extends EmptyInterceptor implements Ha
     @Override
     public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
         long startTime = System.currentTimeMillis();
-
-        Runtime.getRuntime().gc();
-
+        Runtime runtime = Runtime.getRuntime();
         request.setAttribute(START_TIME, startTime);
-        request.setAttribute(INITIAL_USED_MEMORY, Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory());
+        long value = runtime.maxMemory() - runtime.freeMemory();
+        request.setAttribute(INITIAL_USED_MEMORY, value);
         return true;
     }
 
@@ -32,7 +31,8 @@ public class RequestStatisticsInterceptor extends EmptyInterceptor implements Ha
     public void afterCompletion(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler, Exception ex) {
         long executionTime = System.currentTimeMillis() - (long) request.getAttribute(START_TIME);
 
-        long currentMemory = Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory();
+        Runtime runtime = Runtime.getRuntime();
+        long currentMemory = runtime.maxMemory() - runtime.freeMemory();
         log.info("[" + handler + "] [Time: " + executionTime + "ms], [Memory-Used: " + (currentMemory - (long) request.getAttribute(INITIAL_USED_MEMORY)) + " bytes]");
     }
 

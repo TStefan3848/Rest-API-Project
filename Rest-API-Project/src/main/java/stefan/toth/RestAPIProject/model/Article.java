@@ -27,15 +27,15 @@ public class Article {
     private String description;
 
     @JsonProperty("Created_at")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date created_at;
 
     @JsonProperty("Published_at")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date published_at;
 
     @JsonProperty("Modified_at")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date modified_at;
 
     @JsonProperty("Author")
@@ -46,7 +46,7 @@ public class Article {
     private int author_id;
 
     @JsonProperty("Categories")
-    @OneToMany
+    @ManyToMany
     private List<Category> categories;
 
     @Transient

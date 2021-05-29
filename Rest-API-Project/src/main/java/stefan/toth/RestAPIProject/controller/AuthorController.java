@@ -16,6 +16,7 @@ import javax.xml.bind.ValidationException;
 import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("authors")
 public class AuthorController {

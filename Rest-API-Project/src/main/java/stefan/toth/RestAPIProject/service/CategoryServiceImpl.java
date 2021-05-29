@@ -2,7 +2,6 @@ package stefan.toth.RestAPIProject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Component;
@@ -84,9 +83,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Caching(evict = {@CacheEvict(value = "categories", allEntries = true),
-            @CacheEvict(value = "categories-exists-id", key = "#category.id"),
-            @CacheEvict(value = "categories-query", allEntries = true)},
-            put = {@CachePut(value = "categories-id", key = "#category.id")})
+            @CacheEvict(value = "categories-exists-id", allEntries = true),
+            @CacheEvict(value = "categories-query", allEntries = true),
+            @CacheEvict(value = "categories-id", allEntries = true)})
     public Category save(Category category) {
         return categoryRepository.save(category);
     }

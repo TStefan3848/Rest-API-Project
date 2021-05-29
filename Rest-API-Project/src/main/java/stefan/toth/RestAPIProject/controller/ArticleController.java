@@ -15,11 +15,9 @@ import stefan.toth.RestAPIProject.service.CategoryService;
 import stefan.toth.RestAPIProject.exception.InvalidIdException;
 
 import javax.xml.bind.ValidationException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("articles")
 public class ArticleController {
@@ -36,13 +34,14 @@ public class ArticleController {
     private final Logger log = LoggerFactory.getLogger(ArticleController.class);
 
     @GetMapping
-    Iterable<Article> getArticles(@RequestParam String title) {
-        if (title.isEmpty()) {
+    Iterable<Article> getArticles(@RequestParam Map<String, String> params) {
+        if (params.isEmpty()) {
             log.info("Fetched all articles.");
-            articleService.findAll();
+            return articleService.findAll();
         }
-        log.info("Fetched all articles by title: { " + title + " }");
-        return articleService.findByTitle(title);
+
+        log.info("Fetched all articles by title: { " + params.get("title") + " }");
+        return articleService.findByTitle(params.get("title"));
     }
 
     @PostMapping

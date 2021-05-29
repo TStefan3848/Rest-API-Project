@@ -2,7 +2,6 @@ package stefan.toth.RestAPIProject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,6 @@ import java.util.Optional;
 @Component
 public class ArticleServiceImpl implements ArticleService {
 
-    //TODO Fix caching... u can't have article.id etc
     @Autowired
     private ArticleRepository articleRepository;
 
@@ -24,7 +22,6 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findByAuthor(author);
     }
 
-    @Cacheable(value = "articles-title", key = "#title")
     public Iterable<Article> findByTitle(String title) {
         return articleRepository.findByTitle(title);
     }
@@ -46,9 +43,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Caching(evict = {@CacheEvict(value = "articles", allEntries = true),
             @CacheEvict(value = "articles-author", allEntries = true),
-            @CacheEvict(value = "articles-exists-id", key = "#article.id"),
-            @CacheEvict(value = "articles-title", allEntries = true)},
-            put = {@CachePut(value = "articles-id", key = "#article.id")})
+            @CacheEvict(value = "articles-exists-id", allEntries = true),
+            @CacheEvict(value = "articles-title", allEntries = true),
+            @CacheEvict(value = "articles-id", allEntries = true)})
     public Article save(Article article) {
         return articleRepository.save(article);
     }
@@ -65,7 +62,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Caching(evict = {
-            @CacheEvict(value = "articles-id", key = "#article.id"),
+            @CacheEvict(value = "articles-id", allEntries = true),
             @CacheEvict(value = "articles", allEntries = true),
             @CacheEvict(value = "articles-title", allEntries = true),
             @CacheEvict(value = "articles-author", allEntries = true),

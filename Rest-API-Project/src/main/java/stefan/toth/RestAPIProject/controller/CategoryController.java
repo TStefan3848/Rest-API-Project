@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("categories")
 public class CategoryController {
